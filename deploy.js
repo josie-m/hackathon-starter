@@ -5,12 +5,11 @@ path = require('path');
 node_ssh = require('node-ssh');
 ssh = new node_ssh();
 
-
 // the method that starts the deployment process
 function main() {
   console.log('Deployment started.');
   sshConnect();
-},
+}
 
 // installs PM2
 function installPM2() {
@@ -63,7 +62,7 @@ function stopRemoteServices() {
   });
 }
 
-// updates the project source on the server//
+// updates the project source on the server
 function updateRemoteApp() {
   return ssh.execCommand(
     'mkdir hackathon-starter && cp -r hackathon-starter-temp/* hackathon-starter/ && rm -rf hackathon-starter-temp', {
@@ -71,7 +70,7 @@ function updateRemoteApp() {
   });
 }
 
-// restart mongodb and node services on the remote server//
+// restart mongodb and node services on the remote server
 function restartRemoteServices() {
   return ssh.execCommand(
     'cd hackathon-starter && sudo service mongod start && pm2 start app.js', {
@@ -85,10 +84,10 @@ function sshConnect() {
 
   ssh
     .connect({
-      // TODO: ADD YOUR IP ADDRESS BELOW (e.g. '12.34.5.67')
-      host: '100.25.193.244',
+      // TODO: ADD YOUR IP ADDRESS BELOW (100.25.193.46)/
+      host: '100.25.193.46',
       username: 'ubuntu',
-      privateKey: 'hs-key.pem'
+      privateKey: 'hs2-key.pem'
     })
     .then(function() {
       console.log('SSH Connection established.');
